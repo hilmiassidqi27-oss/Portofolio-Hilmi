@@ -1,0 +1,536 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hilmi Assidqi - Personal Portfolio & People Analytics</title>
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts: Inter -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background-color: #f8fafc;
+            color: #1e293b;
+        }
+        .tab-active {
+            border-bottom: 2px solid #4f46e5;
+            color: #4f46e5;
+            font-weight: 600;
+        }
+        .project-card {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .project-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05), 0 4px 6px -4px rgba(0, 0, 0, 0.05);
+        }
+    </style>
+</head>
+<body class="min-h-screen pb-20">
+
+    <!-- Header Cover Premium -->
+    <div class="w-full h-56 md:h-72 bg-gradient-to-r from-slate-800 via-indigo-950 to-slate-900 relative overflow-hidden">
+        <div class="absolute inset-0 opacity-10 bg-[radial-gradient(#ffffff_1px,transparent_1px)] [background-size:20px_20px]"></div>
+        <div class="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-slate-900/40 to-transparent"></div>
+    </div>
+
+    <!-- Kontainer Utama -->
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 -mt-20 relative z-10">
+        
+        <!-- Foto Profil Pengguna (Menggunakan Foto Riil Hilmi) -->
+        <div class="w-28 h-28 bg-slate-200 rounded-2xl shadow-lg border border-slate-100 relative overflow-hidden flex items-center justify-center">
+            <!-- Menampilkan foto asli milik Hilmi -->
+            <img id="profile-img" src="1000246332.png" alt="Hilmi Assidqi - Foto Profil Asli" class="w-full h-full object-cover" onerror="handleImageError()"width="50" height="50">
+            <!-- Placeholder Netral jika foto tidak teraba (bukan foto AI/orang asing) -->
+            <div id="profile-fallback" class="hidden w-full h-full bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white text-3xl font-bold">
+                HA
+            </div>
+        </div>
+
+        <!-- Nama & Headline Profesional -->
+        <div class="mt-6 flex flex-col md:flex-row md:items-end justify-between gap-4">
+            <div>
+                <h1 class="text-3xl md:text-4xl font-extrabold tracking-tight text-slate-900">Hilmi Assidqi Aenudin Maksum</h1>
+                <p class="text-base md:text-lg text-indigo-600 font-medium mt-1.5 flex items-center gap-2 flex-wrap">
+                    <span>HR Operations & People Analytics Specialist</span>
+                    <span class="text-slate-300 hidden sm:inline">•</span>
+                    <span class="text-slate-500 text-sm font-normal">Spesialis Data & Administrasi SDM</span>
+                </p>
+            </div>
+        </div>
+
+        <!-- Kontak & Tautan Sosial -->
+        <div class="mt-5 flex flex-wrap gap-y-2 gap-x-4 text-sm text-slate-600 border-b border-slate-200 pb-6">
+            <a href="mailto:hilmiassidqi27@gmail.com" class="flex items-center gap-1.5 hover:text-indigo-600 transition">
+                <span>📧 hilmiassidqi27@gmail.com</span>
+            </a>
+            <span class="text-slate-300 hidden sm:inline">•</span>
+            <a href="tel:+6285724059544" class="flex items-center gap-1.5 hover:text-indigo-600 transition">
+                <span>📞 +62 857-2405-9544</span>
+            </a>
+            <span class="text-slate-300 hidden sm:inline">•</span>
+            <a href="https://linkedin.com/in/hilmi-as-sidqi-/" target="_blank" class="flex items-center gap-1.5 hover:text-indigo-600 transition">
+                <span>💼 LinkedIn Profile</span>
+            </a>
+            <span class="text-slate-300 hidden sm:inline">•</span>
+            <span class="flex items-center gap-1.5">📍 Cikarang, Indonesia</span>
+        </div>
+
+        <!-- Ringkasan Profil Profesional -->
+        <div class="mt-6 flex gap-4 p-5 bg-white border border-slate-200/80 rounded-xl shadow-sm leading-relaxed text-sm text-slate-700">
+            <div class="text-2xl text-indigo-500 select-none">🎯</div>
+            <div>
+                <strong>Profil Profesional:</strong> Saya adalah lulusan Psikologi dari Universitas AKI yang memiliki ketertarikan tinggi pada HR Operations, administrasi data, dan People Analytics. Dengan mengombinasikan landasan perilaku organisasi (psikologi) serta keahlian teknis pengolahan data menggunakan Microsoft Excel, saya berdedikasi untuk merancang sistem administrasi dan pemantauan SDM yang rapi, transparan, serta efisien demi menunjang keputusan strategis organisasi.
+            </div>
+        </div>
+
+        <!-- Menu Tab Interaktif -->
+        <div class="mt-10 border-b border-slate-200 flex gap-8 text-sm text-slate-500 overflow-x-auto pb-px scrollbar-none">
+            <button onclick="switchTab('about')" id="tab-about" class="tab-btn pb-3.5 tab-active transition whitespace-nowrap">📋 Profil & Riwayat</button>
+            <button onclick="switchTab('projects')" id="tab-projects" class="tab-btn pb-3.5 transition whitespace-nowrap">📊 Proyek Analitik & Training</button>
+            <button onclick="switchTab('simulator')" id="tab-simulator" class="tab-btn pb-3.5 transition whitespace-nowrap text-indigo-600 font-semibold flex items-center gap-1.5">
+                <span>⚡ Interactive Excel Simulator</span>
+            </button>
+        </div>
+
+        <!-- ================= KONTEN TAB: ABOUT (PROFIL) ================= -->
+        <div id="content-about" class="tab-content mt-8 space-y-8">
+            
+            <!-- Pengalaman Kerja & Organisasi -->
+            <section class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    💼 Pengalaman Kerja & Organisasi
+                </h3>
+                <div class="space-y-6">
+                    
+                    <!-- SMKN 11 -->
+                    <div class="relative pl-6 border-l-2 border-slate-200">
+                        <div class="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 ring-4 ring-indigo-50"></div>
+                        <div class="flex justify-between items-start flex-wrap gap-1">
+                            <h4 class="font-bold text-slate-900 text-base">Administrative Staff (Magang)</h4>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">Sep 2023 - Des 2023</span>
+                        </div>
+                        <p class="text-xs font-semibold text-indigo-600 mt-0.5">SMKN 11 Semarang (Semarang, Indonesia)</p>
+                        <ul class="list-disc list-outside ml-4 mt-2.5 text-xs text-slate-600 space-y-1.5">
+                            <li>Mengelola dokumentasi peserta dan penjadwalan program sertifikasi dengan tingkat akurasi data 100% demi eksekusi yang tepat waktu.</li>
+                            <li>Mengkoordinasikan kebutuhan logistik serta proses administratif guna mendukung kelancaran aktivitas asesmen kompetensi.</li>
+                            <li>Berkolaborasi erat dengan tim internal untuk memastikan seluruh operasional harian berjalan efisien sesuai tenggat waktu yang ditentukan.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Ketua HIMA -->
+                    <div class="relative pl-6 border-l-2 border-slate-200">
+                        <div class="absolute w-3 h-3 bg-indigo-500 rounded-full -left-[7px] top-1.5 ring-4 ring-indigo-50"></div>
+                        <div class="flex justify-between items-start flex-wrap gap-1">
+                            <h4 class="font-bold text-slate-900 text-base">Ketua Himpunan Mahasiswa Psikologi</h4>
+                            <span class="text-xs bg-slate-100 text-slate-600 px-2 py-0.5 rounded font-mono">Jan 2023 - Des 2023</span>
+                        </div>
+                        <p class="text-xs font-semibold text-indigo-600 mt-0.5">Universitas AKI (Semarang, Indonesia)</p>
+                        <ul class="list-disc list-outside ml-4 mt-2.5 text-xs text-slate-600 space-y-1.5">
+                            <li>Memimpin 21 anggota tim untuk mengeksekusi program akademik dan kemahasiswaan dengan sukses.</li>
+                            <li>Mendelegasikan tugas dan memantau performa kerja tim untuk memastikan tercapainya target organisasi.</li>
+                            <li>Mengelola jembatan komunikasi strategis dengan pemangku kebijakan kampus dan pihak eksternal.</li>
+                        </ul>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Pendidikan -->
+            <section class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    🎓 Pendidikan Akademis
+                </h3>
+                <div class="p-5 rounded-xl bg-white border border-slate-200/80 shadow-sm space-y-3">
+                    <div class="flex justify-between items-start flex-wrap gap-1">
+                        <div>
+                            <h4 class="font-bold text-slate-900 text-base">S1 Psikologi - Universitas AKI, Semarang</h4>
+                            <p class="text-xs text-slate-500 mt-1">IPK: 3.27 / 4.00 | Lulusan 2024</p>
+                        </div>
+                        <span class="text-xs bg-emerald-50 text-emerald-700 border border-emerald-100 px-2.5 py-0.5 rounded-full font-medium">Lulus</span>
+                    </div>
+                    <div class="text-xs text-slate-600 leading-relaxed border-t border-slate-100 pt-3">
+                        <span class="font-semibold text-slate-800 block mb-1">📝 Judul Skripsi:</span>
+                        "The Relationship between Group Cohesiveness and Self-efficacy with Social Loafing" 
+                        <span class="text-slate-500 italic block mt-0.5">(Hubungan Kohesivitas Kelompok & Efikasi Diri dengan Kemalasan Sosial dalam Tim)</span>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Sertifikasi -->
+            <section class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    🏆 Sertifikasi & Pengembangan Profesional
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 text-xs">
+                    <div class="p-4 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-xl shrink-0">🎓</div>
+                        <div>
+                            <p class="font-bold text-slate-900">Diploma of Human Resources</p>
+                            <p class="text-slate-500 text-[10px] mt-0.5">Alison (Edisi 2025)</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-xl shrink-0">💼</div>
+                        <div>
+                            <p class="font-bold text-slate-900">Basic Human Resource</p>
+                            <p class="text-slate-500 text-[10px] mt-0.5">Kelas.com (Edisi 2025)</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-xl shrink-0">🔍</div>
+                        <div>
+                            <p class="font-bold text-slate-900">Talent Acquisition Specialist</p>
+                            <p class="text-slate-500 text-[10px] mt-0.5">MySkill (Edisi 2025)</p>
+                        </div>
+                    </div>
+                    <div class="p-4 bg-white border border-slate-200/80 rounded-xl shadow-sm flex items-center gap-3.5">
+                        <div class="w-10 h-10 rounded-lg bg-indigo-50 flex items-center justify-center text-xl shrink-0">🗣️</div>
+                        <div>
+                            <p class="font-bold text-slate-900">EF SET English Certificate</p>
+                            <p class="text-slate-500 text-[10px] mt-0.5">B2 Upper Intermediate (Edisi 2025)</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Keahlian Teknis -->
+            <section class="space-y-4">
+                <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                    🛠️ Keahlian Teknis (Technical Skills)
+                </h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div class="p-5 rounded-xl bg-white border border-slate-200/80 shadow-sm">
+                        <h4 class="font-bold text-slate-800 text-sm mb-3">Data Processing & Lookup</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1.5 rounded font-mono border border-indigo-100/50 font-semibold">XLOOKUP</span>
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1.5 rounded font-mono border border-indigo-100/50 font-semibold">VLOOKUP</span>
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1.5 rounded font-mono border border-indigo-100/50 font-semibold">INDEX MATCH</span>
+                            <span class="bg-indigo-50 text-indigo-700 text-xs px-2.5 py-1.5 rounded font-mono border border-indigo-100/50 font-semibold">Data Cleaning</span>
+                        </div>
+                    </div>
+                    <div class="p-5 rounded-xl bg-white border border-slate-200/80 shadow-sm">
+                        <h4 class="font-bold text-slate-800 text-sm mb-3">Logical Operations & Aggregation</h4>
+                        <div class="flex flex-wrap gap-2">
+                            <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1.5 rounded font-mono border border-blue-100/50 font-semibold">IFS & NESTED IF</span>
+                            <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1.5 rounded font-mono border border-blue-100/50 font-semibold">SUMIFS & COUNTIFS</span>
+                            <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1.5 rounded font-mono border border-blue-100/50 font-semibold">Pivot Tables</span>
+                            <span class="bg-blue-50 text-blue-700 text-xs px-2.5 py-1.5 rounded font-mono border border-blue-100/50 font-semibold">Google Workspace</span>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </div>
+
+        <!-- ================= KONTEN TAB: PROJECTS ================= -->
+        <div id="content-projects" class="tab-content mt-8 hidden space-y-8">
+            
+            <!-- Proyek 1: PT Sinergi Nusantara -->
+            <div class="project-card p-6 rounded-2xl border border-slate-200 bg-white space-y-4 shadow-sm">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <span class="bg-indigo-50 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold border border-indigo-100">Project Terapan #1</span>
+                    <span class="text-xs text-slate-400 font-mono">PT SINERGI NUSANTARA - TRAINING DASHBOARD 2026</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Sistem Monitoring Pelatihan & Otomatisasi Alokasi Bonus</h3>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                    Sistem spreadsheet komprehensif untuk memantau nilai ujian kompetensi (*Post-Test*) peserta pelatihan karyawan, menentukan klasifikasi kelulusan secara otomatis menggunakan fungsi logika bertingkat, serta mengalokasikan bonus finansial sesuai dengan status kerja karyawan secara presisi.
+                </p>
+
+                <!-- Statistik Proyek -->
+                <div class="grid grid-cols-2 sm:grid-cols-3 gap-4 py-3 border-y border-slate-100">
+                    <div>
+                        <span class="text-[10px] md:text-xs text-slate-400 block uppercase font-semibold">Total Biaya Pelatihan</span>
+                        <span class="text-base md:text-lg font-bold text-emerald-600">Rp 18.500.000</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] md:text-xs text-slate-400 block uppercase font-semibold">Karyawan IT (Remedial)</span>
+                        <span class="text-base md:text-lg font-bold text-amber-600">2 Karyawan</span>
+                    </div>
+                    <div>
+                        <span class="text-[10px] md:text-xs text-slate-400 block uppercase font-semibold">Total Bonus Terdistribusi</span>
+                        <span class="text-base md:text-lg font-bold text-blue-600">Rp 5.250.000</span>
+                    </div>
+                </div>
+
+                <!-- Preview Database -->
+                <div class="mt-4">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Cuplikan Database Utama (Main Course)</span>
+                        <span class="text-xs text-emerald-600 font-mono bg-emerald-50 px-2 py-0.5 rounded font-medium border border-emerald-100">Live Database View</span>
+                    </div>
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                        <table class="min-w-full text-xs text-left divide-y divide-slate-200">
+                            <thead class="bg-slate-50 text-slate-600">
+                                <tr>
+                                    <th class="px-4 py-3">NIK</th>
+                                    <th class="px-4 py-3">Nama</th>
+                                    <th class="px-4 py-3">Departemen</th>
+                                    <th class="px-4 py-3 text-center">Nilai</th>
+                                    <th class="px-4 py-3">Status Kerja</th>
+                                    <th class="px-4 py-3 text-right">Biaya Training</th>
+                                    <th class="px-4 py-3">Kelulusan</th>
+                                    <th class="px-4 py-3 text-right">Bonus</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 bg-white text-slate-700">
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">HR-001</td>
+                                    <td class="px-4 py-2.5 font-semibold">Andi</td>
+                                    <td class="px-4 py-2.5">HR</td>
+                                    <td class="px-4 py-2.5 text-center font-medium">85</td>
+                                    <td class="px-4 py-2.5">Tetap</td>
+                                    <td class="px-4 py-2.5 text-right">Rp2.000.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded-full bg-green-50 text-green-700 text-[10px] font-bold border border-green-100">Lulus</span></td>
+                                    <td class="px-4 py-2.5 text-right">Rp1.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">SM-002</td>
+                                    <td class="px-4 py-2.5 font-semibold">Budi</td>
+                                    <td class="px-4 py-2.5">Sales</td>
+                                    <td class="px-4 py-2.5 text-center font-medium">55</td>
+                                    <td class="px-4 py-2.5">Kontrak</td>
+                                    <td class="px-4 py-2.5 text-right">Rp1.500.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded-full bg-red-50 text-red-700 text-[10px] font-bold border border-red-100">Remedial</span></td>
+                                    <td class="px-4 py-2.5 text-right">Rp250.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">OP-003</td>
+                                    <td class="px-4 py-2.5 font-semibold">Citra</td>
+                                    <td class="px-4 py-2.5">Operations</td>
+                                    <td class="px-4 py-2.5 text-center font-medium">92</td>
+                                    <td class="px-4 py-2.5">Tetap</td>
+                                    <td class="px-4 py-2.5 text-right">Rp2.000.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded-full bg-green-50 text-green-700 text-[10px] font-bold border border-green-100">Lulus</span></td>
+                                    <td class="px-4 py-2.5 text-right">Rp1.000.000</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">FI-004</td>
+                                    <td class="px-4 py-2.5 font-semibold">Dedi</td>
+                                    <td class="px-4 py-2.5">Finance</td>
+                                    <td class="px-4 py-2.5 text-center font-medium">68</td>
+                                    <td class="px-4 py-2.5">Kontrak</td>
+                                    <td class="px-4 py-2.5 text-right">Rp1.500.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2 py-0.5 rounded-full bg-red-50 text-red-700 text-[10px] font-bold border border-red-100">Remedial</span></td>
+                                    <td class="px-4 py-2.5 text-right">Rp250.000</td>
+                                </tr>
+                                <tr class="bg-indigo-50/40">
+                                    <td class="px-4 py-2.5 font-mono font-bold">FI-010</td>
+                                    <td class="px-4 py-2.5 font-bold text-indigo-950">Joko</td>
+                                    <td class="px-4 py-2.5 font-semibold">Finance</td>
+                                    <td class="px-4 py-2.5 text-center font-extrabold text-indigo-600">95</td>
+                                    <td class="px-4 py-2.5 font-medium">Tetap</td>
+                                    <td class="px-4 py-2.5 text-right">Rp2.000.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2.5 py-0.5 rounded-full bg-indigo-100 text-indigo-800 text-[10px] font-extrabold border border-indigo-200">Lulus (Terpuji)</span></td>
+                                    <td class="px-4 py-2.5 text-right font-bold text-indigo-600">Rp1.500.000</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Proyek 2: Employee Database Directory -->
+            <div class="project-card p-6 rounded-2xl border border-slate-200 bg-white space-y-4 shadow-sm">
+                <div class="flex justify-between items-start flex-wrap gap-2">
+                    <span class="bg-indigo-50 text-indigo-700 text-xs px-3 py-1 rounded-full font-semibold border border-indigo-100">Project Terapan #2</span>
+                    <span class="text-xs text-slate-400 font-mono">Employee Database Latihan vlookup_xlookup</span>
+                </div>
+                <h3 class="text-xl font-bold text-slate-900">Manajemen Database Karyawan & Standardisasi Kategori Gaji</h3>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                    Membangun database profil karyawan terstruktur, membersihkan anomali data, serta mengklasifikasikan besaran gaji berdasarkan standar internal perusahaan dengan logika formula `XLOOKUP` dan `IF` bersyarat.
+                </p>
+
+                <!-- Preview Database Gaji -->
+                <div class="mt-4">
+                    <div class="flex justify-between items-center mb-2.5">
+                        <span class="text-xs font-bold uppercase tracking-wider text-slate-400">Database Struktur Gaji & Status Kerja Karyawan</span>
+                        <span class="text-xs text-indigo-600 font-mono bg-indigo-50 px-2 py-0.5 rounded font-medium border border-indigo-100">Latihan vlookup_xlookup 2</span>
+                    </div>
+                    <div class="overflow-x-auto border border-slate-200 rounded-xl shadow-sm">
+                        <table class="min-w-full text-xs text-left divide-y divide-slate-200">
+                            <thead class="bg-slate-50 text-slate-600">
+                                <tr>
+                                    <th class="px-4 py-3">ID Karyawan</th>
+                                    <th class="px-4 py-3">Nama Lengkap</th>
+                                    <th class="px-4 py-3">Departemen</th>
+                                    <th class="px-4 py-3 text-right">Gaji Pokok</th>
+                                    <th class="px-4 py-3">Status Kontrak</th>
+                                    <th class="px-4 py-3">Kategori Gaji</th>
+                                </tr>
+                            </thead>
+                            <tbody class="divide-y divide-slate-100 bg-white text-slate-700">
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">101</td>
+                                    <td class="px-4 py-2.5 font-semibold">Andi</td>
+                                    <td class="px-4 py-2.5">HR</td>
+                                    <td class="px-4 py-2.5 text-right">Rp6.000.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold border border-blue-100">Permanent</span></td>
+                                    <td class="px-4 py-2.5 text-slate-500">Standard</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">102</td>
+                                    <td class="px-4 py-2.5 font-semibold">Budi</td>
+                                    <td class="px-4 py-2.5">Finance</td>
+                                    <td class="px-4 py-2.5 text-right">Rp7.000.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold border border-amber-100">Contract</span></td>
+                                    <td class="px-4 py-2.5 text-indigo-600 font-bold">High</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">103</td>
+                                    <td class="px-4 py-2.5 font-semibold">Citra</td>
+                                    <td class="px-4 py-2.5">HR</td>
+                                    <td class="px-4 py-2.5 text-right">Rp6.500.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2.5 py-0.5 rounded-full bg-blue-50 text-blue-700 text-[10px] font-bold border border-blue-100">Permanent</span></td>
+                                    <td class="px-4 py-2.5 text-slate-500">Standard</td>
+                                </tr>
+                                <tr>
+                                    <td class="px-4 py-2.5 font-mono">104</td>
+                                    <td class="px-4 py-2.5 font-semibold">Deni</td>
+                                    <td class="px-4 py-2.5">IT</td>
+                                    <td class="px-4 py-2.5 text-right">Rp7.500.000</td>
+                                    <td class="px-4 py-2.5"><span class="px-2.5 py-0.5 rounded-full bg-amber-50 text-amber-700 text-[10px] font-bold border border-amber-100">Contract</span></td>
+                                    <td class="px-4 py-2.5 text-indigo-600 font-bold">High</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- ================= KONTEN TAB: SIMULATOR EXCEL ================= -->
+        <div id="content-simulator" class="tab-content mt-8 hidden space-y-6">
+            <div class="p-6 rounded-2xl border border-slate-200 bg-white space-y-4 shadow-sm">
+                <h3 class="text-xl font-bold text-slate-900">⚡ Simulator Rumus XLOOKUP Dinamis</h3>
+                <p class="text-xs md:text-sm text-slate-600 leading-relaxed">
+                    Uji secara langsung kemampuan formula pencarian dinamis yang saya buat. Masukkan **NIK Karyawan** untuk mencari data secara real-time dari database pelatihan *PT Sinergi Nusantara* Anda.
+                </p>
+
+                <!-- Box Simulator Pencarian -->
+                <div class="bg-slate-50 p-6 rounded-xl border border-slate-200/80 space-y-4">
+                    <div class="flex flex-col sm:flex-row gap-3 items-end">
+                        <div class="flex-1">
+                            <label class="block text-xs font-bold text-slate-600 uppercase mb-1.5">Masukan NIK Karyawan (Input Pencarian)</label>
+                            <input type="text" id="sim-input" placeholder="Contoh: HR-001, SM-002, OP-003, FI-010" class="w-full px-4 py-2.5 border border-slate-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-indigo-500 text-sm bg-white">
+                        </div>
+                        <button onclick="runSimulateXlookup()" class="px-5 py-2.5 bg-indigo-600 hover:bg-indigo-700 text-white font-semibold text-sm rounded-lg shadow-md transition whitespace-nowrap">Cari dengan XLOOKUP 🔍</button>
+                    </div>
+
+                    <!-- Representasi Formula Excel -->
+                    <div class="bg-slate-900 text-slate-300 p-3.5 rounded-lg font-mono text-xs overflow-x-auto border border-slate-800 leading-relaxed">
+                        <span class="text-amber-400">=XLOOKUP</span>( <span class="text-blue-400">"Input_NIK"</span>; <span class="text-emerald-400">Database!$A$2:$A$11</span>; <span class="text-purple-400">Database!$B$2:$H$11</span>; <span class="text-red-400">"NIK TIDAK TERDAFTAR"</span> )
+                    </div>
+
+                    <!-- Hasil Pengambilan Data -->
+                    <div class="grid grid-cols-2 sm:grid-cols-4 gap-3 pt-2">
+                        <div class="p-3.5 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Nama Karyawan</span>
+                            <span id="sim-result-nama" class="font-bold text-slate-700 text-sm">-</span>
+                        </div>
+                        <div class="p-3.5 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Departemen</span>
+                            <span id="sim-result-dept" class="font-bold text-slate-700 text-sm">-</span>
+                        </div>
+                        <div class="p-3.5 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Nilai Post-Test</span>
+                            <span id="sim-result-nilai" class="font-bold text-slate-700 text-sm">-</span>
+                        </div>
+                        <div class="p-3.5 bg-white rounded-lg border border-slate-200 shadow-sm">
+                            <span class="text-[10px] uppercase font-bold text-slate-400 block mb-0.5">Status & Kelulusan</span>
+                            <span id="sim-result-status" class="font-bold text-slate-700 text-sm">-</span>
+                        </div>
+                    </div>
+
+                    <div class="p-3.5 bg-indigo-50/50 border border-indigo-100 rounded-lg text-xs text-indigo-800">
+                        🔑 **NIK Terdaftar untuk Pengujian:** `HR-001` (Andi), `SM-002` (Budi), `OP-003` (Citra), `FI-004` (Dedi), `IT-005` (Eka), `SM-006` (Fajar), `HR-007` (Gita), `IT-008` (Hadi), `OP-009` (Indah), `FI-010` (Joko)
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <!-- Script Logic Tab & Simulator -->
+    <script>
+        // Mengatur fallback inisial netral jika browser gagal membaca file gambar lokal
+        function handleImageError() {
+            document.getElementById('profile-img').classList.add('hidden');
+            document.getElementById('profile-fallback').classList.remove('hidden');
+        }
+
+        // Data dari file Excel latihan PT Sinergi Nusantara
+        const trainingDatabase = {
+            'HR-001': { nama: 'Andi', dept: 'HR', nilai: 85, status: 'Lulus (Standard)' },
+            'SM-002': { nama: 'Budi', dept: 'Sales', nilai: 55, status: 'Remedial' },
+            'OP-003': { nama: 'Citra', dept: 'Operations', nilai: 92, status: 'Lulus (Terpuji)' },
+            'FI-004': { nama: 'Dedi', dept: 'Finance', nilai: 68, status: 'Remedial' },
+            'IT-005': { nama: 'Eka', dept: 'IT', nilai: 74, status: 'Remedial' },
+            'SM-006': { nama: 'Fajar', dept: 'Sales', nilai: 81, status: 'Lulus (Standard)' },
+            'HR-007': { nama: 'Gita', dept: 'HR', nilai: 62, status: 'Remedial' },
+            'IT-008': { nama: 'Hadi', dept: 'IT', nilai: 88, status: 'Lulus (Standard)' },
+            'OP-009': { nama: 'Indah', dept: 'Operations', nilai: 79, status: 'Lulus (Standard)' },
+            'FI-010': { nama: 'Joko', dept: 'Finance', nilai: 95, status: 'Lulus (Terpuji)' }
+        };
+
+        // Fungsi navigasi tab
+        function switchTab(tabId) {
+            // Sembunyikan semua tab konten
+            document.querySelectorAll('.tab-content').forEach(element => {
+                element.classList.add('hidden');
+            });
+            // Hapus status aktif dari semua tombol menu tab
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('tab-active');
+            });
+
+            // Tunjukkan konten tab target
+            document.getElementById(`content-${tabId}`).classList.remove('hidden');
+            // Tambah kelas aktif pada tombol yang dipilih
+            document.getElementById(`tab-${tabId}`).classList.add('tab-active');
+        }
+
+        // Logika Simulator Rumus XLOOKUP Dinamis
+        function runSimulateXlookup() {
+            const inputVal = document.getElementById('sim-input').value.trim().toUpperCase();
+            
+            // Elemen output yang akan dimodifikasi
+            const elNama = document.getElementById('sim-result-nama');
+            const elDept = document.getElementById('sim-result-dept');
+            const elNilai = document.getElementById('sim-result-nilai');
+            const elStatus = document.getElementById('sim-result-status');
+
+            if (!inputVal) {
+                elNama.innerText = 'Masukan NIK';
+                elNama.className = "text-amber-600 text-sm font-semibold";
+                return;
+            }
+
+            if (trainingDatabase[inputVal]) {
+                const data = trainingDatabase[inputVal];
+                elNama.innerText = data.nama;
+                elNama.className = "font-bold text-slate-800 text-sm";
+                elDept.innerText = data.dept;
+                elNilai.innerText = data.nilai;
+                
+                // Pewarnaan Tag Status Kelulusan
+                if (data.status.includes('Terpuji')) {
+                    elStatus.innerHTML = `<span class="bg-indigo-50 text-indigo-700 px-2 py-0.5 rounded text-xs font-bold border border-indigo-100">${data.status}</span>`;
+                } else if (data.status.includes('Standard')) {
+                    elStatus.innerHTML = `<span class="bg-green-50 text-green-700 px-2 py-0.5 rounded text-xs font-semibold border border-green-100">${data.status}</span>`;
+                } else {
+                    elStatus.innerHTML = `<span class="bg-red-50 text-red-700 px-2 py-0.5 rounded text-xs font-semibold border border-red-100">${data.status}</span>`;
+                }
+            } else {
+                // Penanganan Error jika NIK tidak terdaftar (#N/A)
+                elNama.innerText = '#N/A';
+                elNama.className = "text-red-500 font-bold font-mono text-sm";
+                elDept.innerText = 'NIK TIDAK TERDAFTAR';
+                elNilai.innerText = '-';
+                elStatus.innerText = '-';
+            }
+        }
+    </script>
+</body>
+</html>
